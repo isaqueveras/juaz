@@ -1,0 +1,55 @@
+pkg biometry
+
+option insecure: true
+option status: 200
+
+type state {
+  done
+  canceled
+  under_analysis
+}
+
+type flow {
+  change_address
+  change_ownership
+  change_plan
+}
+
+node biometry {
+  id: i64
+  document: string
+  flow: flow
+  state: state
+}
+
+node identifier {
+  id: string
+}
+
+node biometry_params {
+  id: string
+  document: string
+}
+
+node search_params {
+  request_id: string
+  parameters: biometry_params
+}
+
+impl create(biometry) identifier {
+  method: "POST"
+  uri: "/v1/biometry/create"
+  status: "201"
+}
+
+impl get(identifier) biometry {
+  method: "GET"
+  uri: "/v1/biometry/{id}"
+  status: "200"
+}
+
+impl search(search_params) biometry {
+  method: "GET"
+  uri: "/v1/biometry/search"
+  status: "200"
+}

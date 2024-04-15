@@ -1,0 +1,42 @@
+pkg user
+
+type level {
+  admin user employee
+}
+
+node empty {}
+
+node user_params {
+  limit: int
+  offset: int
+  total: bool
+  tickets: repeated i64
+  created_at: time
+}
+
+node user {
+  id: i64
+  name: string
+  level: level
+  parameters: user_params
+}
+
+impl get_user(user) user {
+  method: "GET"
+  uri: "/v1/user/{id}"
+}
+
+impl create_user(user) empty {
+  method: "POST"
+  uri: "/v1/account/user/{id}/create"
+}
+
+impl edit_user(user) empty {
+  method: "POST"
+  uri: "/v1/account/user/{id}/edit"
+}
+
+impl delete_user(empty) empty {
+  method: "DELETE"
+  uri: "/v1/account/user/delete"
+}
