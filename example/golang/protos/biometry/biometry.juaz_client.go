@@ -66,8 +66,9 @@ type SearchParams struct {
 	parameters *BiometryParams
 }
 
-func (u *SearchParams) NewParams() {
-	u.parameters = &BiometryParams{}
+// NewParams ...
+func (s *SearchParams) NewParams() {
+	s.parameters = &BiometryParams{}
 }
 
 // WithParamId ...

@@ -19,6 +19,10 @@ func _build_method_parameter(juaz *grammar.Juaz, modelName, node string) string 
 		modelName := strcase.ToCamel(modelName)
 		modelNameLower := strings.ToLower(string(modelName[0]))
 
+		buf.WriteString("\n// NewParams ...")
+		buf.WriteString(fmt.Sprintf("\nfunc (%s *%s) NewParams() {\n", modelNameLower, modelName))
+		buf.WriteString(fmt.Sprintf("\t%s.parameters = &%s{}\n}\n", modelNameLower, strcase.ToCamel(node)))
+
 		for _, entry := range value.Node.Entries {
 			field := _build_type_field(entry.Field)
 			method := strcase.ToCamel(entry.Field.Name)
