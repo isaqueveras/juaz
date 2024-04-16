@@ -6,7 +6,7 @@ require (
 	github.com/alecthomas/participle/v2 v2.1.1
 	github.com/gin-gonic/gin v1.9.1
 	github.com/iancoleman/strcase v0.3.0
-	github.com/isaqueveras/juazeiro v0.0.0-20240319005949-5478d56617c6
+	github.com/isaqueveras/juazeiro v0.0.0-20240416010309-68d04496488e
 )
 
 require (

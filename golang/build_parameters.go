@@ -76,6 +76,7 @@ func _build_parameters(juaz *grammar.Juaz) (out []paramsModelOut) {
 							buf.WriteString("\t}\n")
 						}
 					}
+
 					buf.WriteString("\t" + `return ` + `"?" + ` + `val.Encode()` + "\n")
 					buf.WriteString("}\n")
 

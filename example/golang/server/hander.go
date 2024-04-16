@@ -1,8 +1,6 @@
 package main
 
 import (
-	"encoding/json"
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -15,9 +13,6 @@ func getUser(ctx *gin.Context) {
 	if err := ctx.BindJSON(&info); err != nil {
 		panic(err)
 	}
-
-	v, _ := json.Marshal(&info)
-	log.Println("body", string(v))
 
 	out := &user.User{
 		Id:    pointer(int64(213121)),
@@ -37,9 +32,6 @@ func search_biometry(ctx *gin.Context) {
 	if err := ctx.BindJSON(&body); err != nil {
 		panic(err)
 	}
-
-	v, _ := json.Marshal(&body)
-	log.Println("body", string(v))
 
 	ctx.JSON(http.StatusOK, &biometry.Biometry{
 		Id:       pointer(int64(000)),

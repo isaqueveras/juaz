@@ -24,19 +24,23 @@ node user {
 impl get_user(user) user {
   method: "GET"
   uri: "/v1/user/{id}"
+  status: "200"
 }
 
 impl create_user(user) empty {
   method: "POST"
   uri: "/v1/account/user/{id}/create"
+  status: "201"
 }
 
 impl edit_user(user) empty {
-  method: "POST"
+  method: "PUT"
   uri: "/v1/account/user/{id}/edit"
+  status: "204"
 }
 
 impl delete_user(empty) empty {
   method: "DELETE"
   uri: "/v1/account/user/delete"
+  status: "204"
 }

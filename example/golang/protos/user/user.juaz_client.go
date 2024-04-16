@@ -103,7 +103,7 @@ func (c *UserClient) GetUser(ctx context.Context, in *User) (*User, error) {
 		uri += _build_user_params_parameters(in.parameters)
 		in.parameters = nil
 	}
-	err := c.cc.Invoke(ctx, http.MethodGet, uri, in, out)
+	err := c.cc.Invoke(ctx, http.MethodGet, uri, http.StatusOK, in, out)
 	return out, err
 }
 
@@ -115,7 +115,7 @@ func (c *UserClient) CreateUser(ctx context.Context, in *User) (*Empty, error) {
 		uri += _build_user_params_parameters(in.parameters)
 		in.parameters = nil
 	}
-	err := c.cc.Invoke(ctx, http.MethodPost, uri, in, out)
+	err := c.cc.Invoke(ctx, http.MethodPost, uri, http.StatusCreated, in, out)
 	return out, err
 }
 
@@ -127,7 +127,7 @@ func (c *UserClient) EditUser(ctx context.Context, in *User) (*Empty, error) {
 		uri += _build_user_params_parameters(in.parameters)
 		in.parameters = nil
 	}
-	err := c.cc.Invoke(ctx, http.MethodPost, uri, in, out)
+	err := c.cc.Invoke(ctx, http.MethodPut, uri, http.StatusNoContent, in, out)
 	return out, err
 }
 
@@ -135,7 +135,7 @@ func (c *UserClient) EditUser(ctx context.Context, in *User) (*Empty, error) {
 func (c *UserClient) DeleteUser(ctx context.Context, in *Empty) (*Empty, error) {
 	out := new(Empty)
 	uri := "/v1/account/user/delete"
-	err := c.cc.Invoke(ctx, http.MethodDelete, uri, in, out)
+	err := c.cc.Invoke(ctx, http.MethodDelete, uri, http.StatusNoContent, in, out)
 	return out, err
 }
 
