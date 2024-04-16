@@ -1,7 +1,7 @@
 package golang
 
 import (
-	"log"
+	"fmt"
 	"strings"
 
 	"github.com/iancoleman/strcase"
@@ -18,9 +18,10 @@ func _build_implement_method(juaz *grammar.Juaz) string {
 			buf.WriteString("func (c *" + strcase.ToCamel(pkg) + "Client) " + method + " {\n")
 			buf.WriteString("\tout := new(" + strcase.ToCamel(value.Impl.Output.Reference) + ")\n")
 
-			var httpMethod, uri string
+			var httpMethod, uri, status string
 			for _, v := range value.Impl.Entry {
-				if v.Name == "uri" {
+				switch v.Name {
+				case "uri":
 					var path string
 					var args []string
 					for _, value := range strings.Split(v.Value, "/") {
@@ -47,15 +48,10 @@ func _build_implement_method(juaz *grammar.Juaz) string {
 					} else {
 						uri = v.Value
 					}
-				}
-
-				if v.Name == "method" {
+				case "method":
 					httpMethod = _build_http_method(v.Value)
-				}
-
-				// TODO: (@isaqueveras) BUILD VALIDATION OF STATUS CODE
-				if v.Name == "status" {
-					log.Println(value.Impl.Name, v.Value)
+				case "status":
+					status = _build_status_code(v.Value)
 				}
 			}
 
@@ -75,13 +71,13 @@ func _build_implement_method(juaz *grammar.Juaz) string {
 			for _, params := range _build_parameters(juaz) {
 				if params.name == value.Impl.Input.Reference {
 					buf.WriteString("\tif in.parameters != nil {\n")
-					buf.WriteString("\t\turi += _build_" + params.nameFunc + "_parameters(in.parameters)\n")
+					buf.WriteString(fmt.Sprintf("\t\turi += _build_%s_parameters(in.parameters)\n", params.nameFunc))
 					buf.WriteString("\t\tin.parameters = nil\n")
 					buf.WriteString("\t}\n")
 				}
 			}
 
-			buf.WriteString("\terr := c.cc.Invoke(ctx, " + httpMethod + ", uri, in, out)\n")
+			buf.WriteString(fmt.Sprintf("\terr := c.cc.Invoke(ctx, %s, uri, %s, in, out)\n", httpMethod, status))
 			buf.WriteString("\treturn out, err\n")
 			buf.WriteString("}\n")
 		}
