@@ -31,8 +31,10 @@ github.com/google/gofuzz v1.0.0/go.mod h1:dBl0BpW6vV/+mYPU4Po3pmUjxk6FQPldtuIdl/
 github.com/hexops/gotextdiff v1.0.3 h1:gitA9+qJrrTCsiCl7+kh75nPqQt1cx4ZkudSTLoUqJM=
 github.com/iancoleman/strcase v0.3.0 h1:nTXanmYxhfFAMjZL34Ov6gkzEsSJZ5DbhxWjvSASxEI=
 github.com/iancoleman/strcase v0.3.0/go.mod h1:iwCmte+B7n89clKwxIoIXy/HfoL7AsD47ZCWhYzw7ho=
-github.com/isaqueveras/juazeiro v0.0.0-20240319005949-5478d56617c6 h1:tT4wQsLiSxImw+6ObFbpFd/66FziInm5yuuyq8tOxFg=
-github.com/isaqueveras/juazeiro v0.0.0-20240319005949-5478d56617c6/go.mod h1:1z3hn2j/vNaNJYvwvYLU56YC3J1kjCSZd+wxN3O950Y=
+github.com/isaqueveras/juazeiro v0.0.0-20240327183928-7ff1eb5bc678 h1:rBgPHGqoWZwaASOX7/I12unfxEWA3a27G78iBwax574=
+github.com/isaqueveras/juazeiro v0.0.0-20240327183928-7ff1eb5bc678/go.mod h1:1z3hn2j/vNaNJYvwvYLU56YC3J1kjCSZd+wxN3O950Y=
+github.com/isaqueveras/juazeiro v0.0.0-20240416010309-68d04496488e h1:Ch1pa4qwcQ/q7AT6L9l4kJHxjqsWg60jVryXU7+Be7c=
+github.com/isaqueveras/juazeiro v0.0.0-20240416010309-68d04496488e/go.mod h1:woJKy1GAQq0TCmX+diXBIFRv8+rar7FGH9WLWqM/L0o=
 github.com/json-iterator/go v1.1.12 h1:PV8peI4a0ysnczrg+LtxykD8LfKY9ML6u2jnxaEnrnM=
 github.com/json-iterator/go v1.1.12/go.mod h1:e30LSqwooZae/UwlEbR2852Gd8hjQvJoHmT4TnhNGBo=
 github.com/klauspost/cpuid/v2 v2.0.9/go.mod h1:FInQzS24/EEf25PyTYn52gqo7WaD8xa0213Md/qVLRg=

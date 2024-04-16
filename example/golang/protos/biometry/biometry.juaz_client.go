@@ -100,7 +100,7 @@ func NewBiometryClient(cc juazeiro.ClientConnInterface) IBiometryClient {
 func (c *BiometryClient) Create(ctx context.Context, in *Biometry) (*Identifier, error) {
 	out := new(Identifier)
 	uri := "/v1/biometry/create"
-	err := c.cc.Invoke(ctx, http.MethodPost, uri, in, out)
+	err := c.cc.Invoke(ctx, http.MethodPost, uri, http.StatusCreated, in, out)
 	return out, err
 }
 
@@ -108,7 +108,7 @@ func (c *BiometryClient) Create(ctx context.Context, in *Biometry) (*Identifier,
 func (c *BiometryClient) Get(ctx context.Context, in *Identifier) (*Biometry, error) {
 	out := new(Biometry)
 	uri := fmt.Sprintf("/v1/biometry/%v", *in.Id)
-	err := c.cc.Invoke(ctx, http.MethodGet, uri, in, out)
+	err := c.cc.Invoke(ctx, http.MethodGet, uri, http.StatusOK, in, out)
 	return out, err
 }
 
@@ -120,7 +120,7 @@ func (c *BiometryClient) Search(ctx context.Context, in *SearchParams) (*Biometr
 		uri += _build_biometry_params_parameters(in.parameters)
 		in.parameters = nil
 	}
-	err := c.cc.Invoke(ctx, http.MethodGet, uri, in, out)
+	err := c.cc.Invoke(ctx, http.MethodGet, uri, http.StatusOK, in, out)
 	return out, err
 }
 

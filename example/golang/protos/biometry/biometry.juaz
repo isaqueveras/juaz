@@ -1,7 +1,6 @@
 pkg biometry
 
 option insecure: true
-option status: 200
 
 type state {
   done
