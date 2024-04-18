@@ -41,9 +41,9 @@ impl create(biometry) identifier {
   status: "201"
 }
 
-impl get(identifier) biometry {
+impl get(biometry) {
   method: "GET"
-  uri: "/v1/biometry/{id}"
+  uri: "/v1/biometry/obtain/{id}"
   status: "200"
 }
 

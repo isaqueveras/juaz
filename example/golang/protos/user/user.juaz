@@ -27,19 +27,19 @@ impl get_user(user) user {
   status: "200"
 }
 
-impl create_user(user) empty {
+impl create_user(user) {
   method: "POST"
   uri: "/v1/account/user/{id}/create"
   status: "201"
 }
 
-impl edit_user(user) empty {
+impl edit_user(user) {
   method: "PUT"
   uri: "/v1/account/user/{id}/edit"
   status: "204"
 }
 
-impl delete_user(empty) empty {
+impl delete_user(empty) {
   method: "DELETE"
   uri: "/v1/account/user/delete"
   status: "204"

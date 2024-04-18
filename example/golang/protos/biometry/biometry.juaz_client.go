@@ -85,7 +85,7 @@ func (s *SearchParams) ParamDocument(document *string) {
 // IBiometryClient defines the interface of the provided methods
 type IBiometryClient interface {
 	Create(context.Context, *Biometry) (*Identifier, error)
-	Get(context.Context, *Identifier) (*Biometry, error)
+	Get(context.Context, *Biometry) error
 	Search(context.Context, *SearchParams) (*[]Biometry, error)
 }
 
@@ -106,11 +106,9 @@ func (c *BiometryClient) Create(ctx context.Context, in *Biometry) (*Identifier,
 }
 
 // Get implements the get method of the interface
-func (c *BiometryClient) Get(ctx context.Context, in *Identifier) (*Biometry, error) {
-	out := new(Biometry)
-	uri := fmt.Sprintf("/v1/biometry/%v", *in.Id)
-	err := c.cc.Invoke(ctx, http.MethodGet, uri, http.StatusOK, in, out)
-	return out, err
+func (c *BiometryClient) Get(ctx context.Context, in *Biometry) error {
+	uri := fmt.Sprintf("/v1/biometry/obtain/%v", *in.Id)
+	return c.cc.Invoke(ctx, http.MethodGet, uri, http.StatusOK, in, in)
 }
 
 // Search implements the search method of the interface
