@@ -47,7 +47,7 @@ impl get(identifier) biometry {
   status: "200"
 }
 
-impl search(search_params) biometry {
+impl search(search_params) ~biometry {
   method: "GET"
   uri: "/v1/biometry/search"
   status: "200"

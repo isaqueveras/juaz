@@ -49,33 +49,43 @@ type User struct {
 	parameters *UserParams
 }
 
-// NewParams ...
-func (u *User) NewParams() {
-	u.parameters = &UserParams{}
-}
-
-// WithParamLimit ...
-func (u *User) WithParamLimit(limit *int) {
+// ParamLimit ...
+func (u *User) ParamLimit(limit *int) {
+	if u.parameters == nil {
+		u.parameters = &UserParams{}
+	}
 	u.parameters.Limit = limit
 }
 
-// WithParamOffset ...
-func (u *User) WithParamOffset(offset *int) {
+// ParamOffset ...
+func (u *User) ParamOffset(offset *int) {
+	if u.parameters == nil {
+		u.parameters = &UserParams{}
+	}
 	u.parameters.Offset = offset
 }
 
-// WithParamTotal ...
-func (u *User) WithParamTotal(total *bool) {
+// ParamTotal ...
+func (u *User) ParamTotal(total *bool) {
+	if u.parameters == nil {
+		u.parameters = &UserParams{}
+	}
 	u.parameters.Total = total
 }
 
-// WithParamTickets ...
-func (u *User) WithParamTickets(tickets []*int64) {
+// ParamTickets ...
+func (u *User) ParamTickets(tickets []*int64) {
+	if u.parameters == nil {
+		u.parameters = &UserParams{}
+	}
 	u.parameters.Tickets = tickets
 }
 
-// WithParamCreatedAt ...
-func (u *User) WithParamCreatedAt(createdAt *time.Time) {
+// ParamCreatedAt ...
+func (u *User) ParamCreatedAt(createdAt *time.Time) {
+	if u.parameters == nil {
+		u.parameters = &UserParams{}
+	}
 	u.parameters.CreatedAt = createdAt
 }
 
@@ -95,7 +105,7 @@ func NewUserClient(cc juazeiro.ClientConnInterface) IUserClient {
 	return &UserClient{cc: cc}
 }
 
-// GetUser implements the GetUser method of the interface
+// GetUser implements the get_user method of the interface
 func (c *UserClient) GetUser(ctx context.Context, in *User) (*User, error) {
 	out := new(User)
 	uri := fmt.Sprintf("/v1/user/%v", *in.Id)
@@ -107,7 +117,7 @@ func (c *UserClient) GetUser(ctx context.Context, in *User) (*User, error) {
 	return out, err
 }
 
-// CreateUser implements the CreateUser method of the interface
+// CreateUser implements the create_user method of the interface
 func (c *UserClient) CreateUser(ctx context.Context, in *User) (*Empty, error) {
 	out := new(Empty)
 	uri := fmt.Sprintf("/v1/account/user/%v/create", *in.Id)
@@ -119,7 +129,7 @@ func (c *UserClient) CreateUser(ctx context.Context, in *User) (*Empty, error) {
 	return out, err
 }
 
-// EditUser implements the EditUser method of the interface
+// EditUser implements the edit_user method of the interface
 func (c *UserClient) EditUser(ctx context.Context, in *User) (*Empty, error) {
 	out := new(Empty)
 	uri := fmt.Sprintf("/v1/account/user/%v/edit", *in.Id)
@@ -131,7 +141,7 @@ func (c *UserClient) EditUser(ctx context.Context, in *User) (*Empty, error) {
 	return out, err
 }
 
-// DeleteUser implements the DeleteUser method of the interface
+// DeleteUser implements the delete_user method of the interface
 func (c *UserClient) DeleteUser(ctx context.Context, in *Empty) (*Empty, error) {
 	out := new(Empty)
 	uri := "/v1/account/user/delete"

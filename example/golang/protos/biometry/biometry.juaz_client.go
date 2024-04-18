@@ -66,18 +66,19 @@ type SearchParams struct {
 	parameters *BiometryParams
 }
 
-// NewParams ...
-func (s *SearchParams) NewParams() {
-	s.parameters = &BiometryParams{}
-}
-
-// WithParamId ...
-func (s *SearchParams) WithParamId(id *string) {
+// ParamId ...
+func (s *SearchParams) ParamId(id *string) {
+	if s.parameters == nil {
+		s.parameters = &BiometryParams{}
+	}
 	s.parameters.Id = id
 }
 
-// WithParamDocument ...
-func (s *SearchParams) WithParamDocument(document *string) {
+// ParamDocument ...
+func (s *SearchParams) ParamDocument(document *string) {
+	if s.parameters == nil {
+		s.parameters = &BiometryParams{}
+	}
 	s.parameters.Document = document
 }
 
@@ -85,7 +86,7 @@ func (s *SearchParams) WithParamDocument(document *string) {
 type IBiometryClient interface {
 	Create(context.Context, *Biometry) (*Identifier, error)
 	Get(context.Context, *Identifier) (*Biometry, error)
-	Search(context.Context, *SearchParams) (*Biometry, error)
+	Search(context.Context, *SearchParams) (*[]Biometry, error)
 }
 
 type BiometryClient struct {
@@ -96,7 +97,7 @@ func NewBiometryClient(cc juazeiro.ClientConnInterface) IBiometryClient {
 	return &BiometryClient{cc: cc}
 }
 
-// Create implements the Create method of the interface
+// Create implements the create method of the interface
 func (c *BiometryClient) Create(ctx context.Context, in *Biometry) (*Identifier, error) {
 	out := new(Identifier)
 	uri := "/v1/biometry/create"
@@ -104,7 +105,7 @@ func (c *BiometryClient) Create(ctx context.Context, in *Biometry) (*Identifier,
 	return out, err
 }
 
-// Get implements the Get method of the interface
+// Get implements the get method of the interface
 func (c *BiometryClient) Get(ctx context.Context, in *Identifier) (*Biometry, error) {
 	out := new(Biometry)
 	uri := fmt.Sprintf("/v1/biometry/%v", *in.Id)
@@ -112,9 +113,9 @@ func (c *BiometryClient) Get(ctx context.Context, in *Identifier) (*Biometry, er
 	return out, err
 }
 
-// Search implements the Search method of the interface
-func (c *BiometryClient) Search(ctx context.Context, in *SearchParams) (*Biometry, error) {
-	out := new(Biometry)
+// Search implements the search method of the interface
+func (c *BiometryClient) Search(ctx context.Context, in *SearchParams) (*[]Biometry, error) {
+	out := new([]Biometry)
 	uri := "/v1/biometry/search"
 	if in.parameters != nil {
 		uri += _build_biometry_params_parameters(in.parameters)
