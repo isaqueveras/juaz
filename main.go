@@ -13,9 +13,6 @@ import (
 	"github.com/isaqueveras/juaz/grammar"
 )
 
-// https://apicnp.gs1br.org/api-portal/
-// http://educacao.dadosabertosbr.org/
-
 func main() {
 	pathFile := flag.String("file", "", "path to juaz file")
 	flag.Parse()
