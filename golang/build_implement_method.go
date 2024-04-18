@@ -13,10 +13,18 @@ func _build_implement_method(juaz *grammar.Juaz) string {
 	pkg := strcase.ToCamel(juaz.Entries[0].Package)
 	for _, value := range juaz.Entries {
 		if value.Impl != nil {
-			method := strcase.ToCamel(value.Impl.Name) + `(ctx context.Context, in *` + strcase.ToCamel(value.Impl.Input.Reference) + `) (*` + strcase.ToCamel(value.Impl.Output.Reference) + `, error)`
-			buf.WriteString("\n// " + strcase.ToCamel(value.Impl.Name) + " implements the " + strcase.ToCamel(value.Impl.Name) + " method of the interface\n")
-			buf.WriteString("func (c *" + strcase.ToCamel(pkg) + "Client) " + method + " {\n")
-			buf.WriteString("\tout := new(" + strcase.ToCamel(value.Impl.Output.Reference) + ")\n")
+			reference := strcase.ToCamel(value.Impl.Output.Reference)
+			if value.Impl.Repeated {
+				reference = fmt.Sprintf("[]%s", reference)
+			}
+
+			method := fmt.Sprintf("%s(ctx context.Context, in *%s) (*%s, error)", strcase.ToCamel(value.Impl.Name),
+				strcase.ToCamel(value.Impl.Input.Reference), reference)
+
+			buf.WriteString(fmt.Sprintf("\n// %s implements the %s method of the interface\n", strcase.ToCamel(value.Impl.Name), value.Impl.Name))
+			buf.WriteString(fmt.Sprintf("func (c *%sClient) "+method+" {\n", strcase.ToCamel(pkg)))
+
+			buf.WriteString("\tout := new(" + reference + ")\n")
 
 			var httpMethod, uri, status string
 			for _, v := range value.Impl.Entry {

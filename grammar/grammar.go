@@ -1,4 +1,4 @@
-// nolint: govet, golint
+//nolint:all
 package grammar
 
 import (
@@ -62,10 +62,11 @@ type MapEntry struct {
 type Impl struct {
 	Pos lexer.Position
 
-	Name   string       `"impl" @Ident`
-	Input  *ItemType    `"(" @@ ")"`
-	Output *ItemType    `@@`
-	Entry  []*ImplEntry `"{" @@* "}"`
+	Name     string       `"impl" @Ident`
+	Input    *ItemType    `"(" @@ ")"`
+	Repeated bool         `@ "~"?`
+	Output   *ItemType    `@@`
+	Entry    []*ImplEntry `"{" @@* "}"`
 }
 
 type ImplEntry struct {

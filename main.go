@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 
 	"github.com/alecthomas/participle/v2"
+
 	"github.com/isaqueveras/juaz/golang"
 	"github.com/isaqueveras/juaz/grammar"
 )
@@ -33,6 +34,7 @@ func main() {
 
 	parser := participle.MustBuild[grammar.Juaz](participle.UseLookahead(2))
 	juaz, _ := parser.Parse("", fileIn)
+	// repr.Println(juaz)
 
 	fileOut, err := os.Create(juaz.Pos.Filename + "_client.go")
 	if err != nil {

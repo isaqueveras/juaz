@@ -33,10 +33,18 @@ func search_biometry(ctx *gin.Context) {
 		panic(err)
 	}
 
-	ctx.JSON(http.StatusOK, &biometry.Biometry{
-		Id:       pointer(int64(000)),
-		Document: pointer("0000000000"),
-		Flow:     pointer(biometry.FlowChangeOwnership),
-		State:    pointer(biometry.StateDone),
+	ctx.JSON(http.StatusOK, []*biometry.Biometry{
+		{
+			Id:       pointer(int64(1)),
+			Document: pointer("122.534.634-56"),
+			Flow:     pointer(biometry.FlowChangeOwnership),
+			State:    pointer(biometry.StateDone),
+		},
+		{
+			Id:       pointer(int64(2)),
+			Document: pointer("237.848.239-54"),
+			Flow:     pointer(biometry.FlowChangePlan),
+			State:    pointer(biometry.StateCanceled),
+		},
 	})
 }
