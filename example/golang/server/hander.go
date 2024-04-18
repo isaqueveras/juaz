@@ -48,3 +48,15 @@ func search_biometry(ctx *gin.Context) {
 		},
 	})
 }
+
+func obtain_biometry(ctx *gin.Context) {
+	body := new(biometry.Biometry)
+	if err := ctx.BindJSON(&body); err != nil {
+		panic(err)
+	}
+
+	body.State = pointer(biometry.StateUnderAnalysis)
+	body.Id = pointer(int64(238942347238947923))
+
+	ctx.JSON(http.StatusOK, body)
+}

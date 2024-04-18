@@ -92,9 +92,9 @@ func (u *User) ParamCreatedAt(createdAt *time.Time) {
 // IUserClient defines the interface of the provided methods
 type IUserClient interface {
 	GetUser(context.Context, *User) (*User, error)
-	CreateUser(context.Context, *User) (*Empty, error)
-	EditUser(context.Context, *User) (*Empty, error)
-	DeleteUser(context.Context, *Empty) (*Empty, error)
+	CreateUser(context.Context, *User) error
+	EditUser(context.Context, *User) error
+	DeleteUser(context.Context, *Empty) error
 }
 
 type UserClient struct {
@@ -118,35 +118,29 @@ func (c *UserClient) GetUser(ctx context.Context, in *User) (*User, error) {
 }
 
 // CreateUser implements the create_user method of the interface
-func (c *UserClient) CreateUser(ctx context.Context, in *User) (*Empty, error) {
-	out := new(Empty)
+func (c *UserClient) CreateUser(ctx context.Context, in *User) error {
 	uri := fmt.Sprintf("/v1/account/user/%v/create", *in.Id)
 	if in.parameters != nil {
 		uri += _build_user_params_parameters(in.parameters)
 		in.parameters = nil
 	}
-	err := c.cc.Invoke(ctx, http.MethodPost, uri, http.StatusCreated, in, out)
-	return out, err
+	return c.cc.Invoke(ctx, http.MethodPost, uri, http.StatusCreated, in, in)
 }
 
 // EditUser implements the edit_user method of the interface
-func (c *UserClient) EditUser(ctx context.Context, in *User) (*Empty, error) {
-	out := new(Empty)
+func (c *UserClient) EditUser(ctx context.Context, in *User) error {
 	uri := fmt.Sprintf("/v1/account/user/%v/edit", *in.Id)
 	if in.parameters != nil {
 		uri += _build_user_params_parameters(in.parameters)
 		in.parameters = nil
 	}
-	err := c.cc.Invoke(ctx, http.MethodPut, uri, http.StatusNoContent, in, out)
-	return out, err
+	return c.cc.Invoke(ctx, http.MethodPut, uri, http.StatusNoContent, in, in)
 }
 
 // DeleteUser implements the delete_user method of the interface
-func (c *UserClient) DeleteUser(ctx context.Context, in *Empty) (*Empty, error) {
-	out := new(Empty)
+func (c *UserClient) DeleteUser(ctx context.Context, in *Empty) error {
 	uri := "/v1/account/user/delete"
-	err := c.cc.Invoke(ctx, http.MethodDelete, uri, http.StatusNoContent, in, out)
-	return out, err
+	return c.cc.Invoke(ctx, http.MethodDelete, uri, http.StatusNoContent, in, in)
 }
 
 func _build_user_params_parameters(in *UserParams) string {

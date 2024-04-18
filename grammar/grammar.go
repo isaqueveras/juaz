@@ -65,7 +65,7 @@ type Impl struct {
 	Name     string       `"impl" @Ident`
 	Input    *ItemType    `"(" @@ ")"`
 	Repeated bool         `@ "~"?`
-	Output   *ItemType    `@@`
+	Output   *ItemType    `@@?`
 	Entry    []*ImplEntry `"{" @@* "}"`
 }
 

@@ -38,11 +38,10 @@ func main() {
 		handling(err)
 		return
 	}
-	showResponse(userData)
+	show(userData)
 
-	inputBio := &biometry.SearchParams{
-		RequestId: userData.Name,
-	}
+	inputBio := &biometry.SearchParams{RequestId: userData.Name}
+	inputBio.ParamDocument(pointer("049.324.123-93"))
 
 	repoBio := biometry.NewBiometryClient(conn)
 	searchData, err := repoBio.Search(context.Background(), inputBio)
@@ -50,16 +49,22 @@ func main() {
 		handling(err)
 		return
 	}
+	show(searchData)
 
-	showResponse(searchData)
+	biometryData := &biometry.Biometry{Id: pointer(int64(233))}
+	if err = repoBio.Get(context.Background(), biometryData); err != nil {
+		handling(err)
+		return
+	}
+	show(biometryData)
 
-	if _, err = repoUser.EditUser(context.Background(), input); err != nil {
+	if err = repoUser.EditUser(context.Background(), input); err != nil {
 		handling(err)
 		return
 	}
 }
 
-func showResponse(value any) {
+func show(value any) {
 	str, err := json.Marshal(&value)
 	if err != nil {
 		panic(err)

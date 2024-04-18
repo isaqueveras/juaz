@@ -16,13 +16,18 @@ func _build_interface_methods(juaz *grammar.Juaz) string {
 	buf.WriteString(fmt.Sprintf("type I%sClient interface {\n", pkg))
 	for _, value := range juaz.Entries {
 		if value.Impl != nil {
-			reference := strcase.ToCamel(value.Impl.Output.Reference)
-			if value.Impl.Repeated {
-				reference = fmt.Sprintf("[]%s", reference)
-			}
+			if value.Impl.Output != nil {
+				reference := strcase.ToCamel(value.Impl.Output.Reference)
+				if value.Impl.Repeated {
+					reference = fmt.Sprintf("[]%s", reference)
+				}
 
-			buf.WriteString(fmt.Sprintf("\t%s(context.Context, *%s) (*%s, error)\n", strcase.ToCamel(value.Impl.Name),
-				strcase.ToCamel(value.Impl.Input.Reference), reference))
+				buf.WriteString(fmt.Sprintf("\t%s(context.Context, *%s) (*%s, error)\n", strcase.ToCamel(value.Impl.Name),
+					strcase.ToCamel(value.Impl.Input.Reference), reference))
+			} else {
+				buf.WriteString(fmt.Sprintf("\t%s(context.Context, *%s) error\n", strcase.ToCamel(value.Impl.Name),
+					strcase.ToCamel(value.Impl.Input.Reference)))
+			}
 		}
 	}
 	buf.WriteString("}\n")
