@@ -13,7 +13,7 @@ node user_params {
   limit: int
   offset: int
   total: bool
-  tickets: repeated i64
+  tickets: ~i64
   created_at: time
 }
 
@@ -21,6 +21,7 @@ node user {
   id: i64
   name: string
   level: level
+  rules: ~string
   parameters: user_params
 }
 

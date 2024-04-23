@@ -43,9 +43,10 @@ type UserParams struct {
 
 // User data model for the user structure
 type User struct {
-	Id         *int64  `json:"id,omitempty"`
-	Name       *string `json:"name,omitempty"`
-	Level      *Level  `json:"level,omitempty"`
+	Id         *int64    `json:"id,omitempty"`
+	Name       *string   `json:"name,omitempty"`
+	Level      *Level    `json:"level,omitempty"`
+	Rules      []*string `json:"rules,omitempty"`
 	parameters *UserParams
 }
 
