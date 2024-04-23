@@ -1,5 +1,8 @@
 pkg user
 
+option status "204"
+option method "GET"
+
 type level {
   admin user employee
 }
@@ -22,7 +25,6 @@ node user {
 }
 
 impl get_user(user) user {
-  method: "GET"
   uri: "/v1/user/{id}"
   status: "200"
 }
@@ -36,11 +38,9 @@ impl create_user(user) {
 impl edit_user(user) {
   method: "PUT"
   uri: "/v1/account/user/{id}/edit"
-  status: "204"
 }
 
 impl delete_user(empty) {
   method: "DELETE"
   uri: "/v1/account/user/delete"
-  status: "204"
 }

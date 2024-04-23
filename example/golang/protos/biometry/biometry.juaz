@@ -1,7 +1,7 @@
 pkg biometry
 
-option status: "200"
-option method: "GET"
+option status "200"
+option method "GET"
 
 type state {
 	done

@@ -24,7 +24,7 @@ type Entry struct {
 type Option struct {
 	Pos lexer.Position
 
-	Name  string `"option" (@Ident":"`
+	Name  string `"option" (@Ident `
 	Value string `@String)`
 }
 
