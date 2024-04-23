@@ -64,7 +64,7 @@ type Impl struct {
 
 	Name     string       `"impl" @Ident`
 	Input    *ItemType    `"(" @@ ")"`
-	Repeated bool         `@ "~"?`
+	Repeated bool         `@"~"?`
 	Output   *ItemType    `@@?`
 	Entry    []*ImplEntry `"{" @@* "}"`
 }
@@ -119,7 +119,7 @@ type Field struct {
 	Pos lexer.Position
 
 	Name     string    `(@Ident":"`
-	Repeated bool      `(@ "repeated")?`
+	Repeated bool      `(@"~")?`
 	Type     *ItemType `@@)`
 }
 
