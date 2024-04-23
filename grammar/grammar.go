@@ -24,8 +24,8 @@ type Entry struct {
 type Option struct {
 	Pos lexer.Position
 
-	Name  string `"option" @Ident":"`
-	Value *Value `@@`
+	Name  string `"option" (@Ident":"`
+	Value string `@String)`
 }
 
 type Value struct {
@@ -93,10 +93,10 @@ type Type struct {
 type TypeEntry struct {
 	Pos lexer.Position
 
-	Value *EnumValue `  @@`
+	Value *TypeValue `  @@`
 }
 
-type EnumValue struct {
+type TypeValue struct {
 	Pos lexer.Position
 
 	Key string `@Ident`

@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/iancoleman/strcase"
+
 	"github.com/isaqueveras/juaz/grammar"
 )
 
@@ -17,7 +18,6 @@ func _build_implement_method(juaz *grammar.Juaz) string {
 		}
 
 		var method, out string
-
 		if value.Impl.Output != nil {
 			reference := strcase.ToCamel(value.Impl.Output.Reference)
 			if value.Impl.Output.Scalar != 0 {
@@ -77,6 +77,14 @@ func _build_implement_method(juaz *grammar.Juaz) string {
 				httpMethod = _build_http_method(v.Value)
 			case "status":
 				status = _build_status_code(v.Value)
+			}
+
+			if status == "" {
+				status = _build_status_code(_build_status_option(juaz))
+			}
+
+			if httpMethod == "" {
+				httpMethod = _build_http_method(_build_method_option(juaz))
 			}
 		}
 

@@ -1,50 +1,47 @@
 pkg biometry
 
-option insecure: true
+option status: "200"
+option method: "GET"
 
 type state {
-  done
-  canceled
-  under_analysis
+	done
+	canceled
+	under_analysis
 }
 
 type flow {
-  change_address
-  change_ownership
-  change_plan
+	change_address
+	change_ownership
+	change_plan
 }
 
 node biometry {
-  id: i64
-  document: string
-  flow: flow
-  state: state
+	id: i64
+	document: string
+	flow: flow
+	state: state
 }
 
 node biometry_params {
-  id: string
-  document: string
+	id: string
+	document: string
 }
 
 node search_params {
-  request_id: string
-  parameters: biometry_params
+	request_id: string
+	parameters: biometry_params
 }
 
 impl create(biometry) string {
-  method: "POST"
-  uri: "/v1/biometry"
-  status: "201"
+	method: "POST"
+	uri: "/v1/biometry"
+	status: "201"
 }
 
 impl get(biometry) {
-  method: "GET"
-  uri: "/v1/biometry/obtain/{id}"
-  status: "200"
+	uri: "/v1/biometry/obtain/{id}"
 }
 
 impl search(search_params) ~biometry {
-  method: "GET"
-  uri: "/v1/biometry/search"
-  status: "200"
+	uri: "/v1/biometry/search"
 }
