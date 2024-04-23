@@ -20,6 +20,10 @@ func _build_implement_method(juaz *grammar.Juaz) string {
 
 		if value.Impl.Output != nil {
 			reference := strcase.ToCamel(value.Impl.Output.Reference)
+			if value.Impl.Output.Scalar != 0 {
+				reference = value.Impl.Output.Scalar.GoString()
+			}
+
 			if value.Impl.Repeated {
 				reference = fmt.Sprintf("[]%s", reference)
 			}

@@ -60,3 +60,7 @@ func obtain_biometry(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, body)
 }
+
+func create_biometry(ctx *gin.Context) {
+	ctx.JSON(http.StatusCreated, "4f68accd-a754-4218-91f6-b9e6c0fe8da7")
+}

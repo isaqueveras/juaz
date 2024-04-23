@@ -49,11 +49,6 @@ type Biometry struct {
 	State *State `json:"state,omitempty"`
 }
 
-// Identifier data model for the identifier structure
-type Identifier struct {
-	Id *string `json:"id,omitempty"`
-}
-
 // BiometryParams data model for the biometry_params structure
 type BiometryParams struct {
 	Id *string `json:"id,omitempty"`
@@ -84,7 +79,7 @@ func (s *SearchParams) ParamDocument(document *string) {
 
 // IBiometryClient defines the interface of the provided methods
 type IBiometryClient interface {
-	Create(context.Context, *Biometry) (*Identifier, error)
+	Create(context.Context, *Biometry) (*string, error)
 	Get(context.Context, *Biometry) error
 	Search(context.Context, *SearchParams) (*[]Biometry, error)
 }
@@ -98,9 +93,9 @@ func NewBiometryClient(cc juazeiro.ClientConnInterface) IBiometryClient {
 }
 
 // Create implements the create method of the interface
-func (c *BiometryClient) Create(ctx context.Context, in *Biometry) (*Identifier, error) {
-	out := new(Identifier)
-	uri := "/v1/biometry/create"
+func (c *BiometryClient) Create(ctx context.Context, in *Biometry) (*string, error) {
+	out := new(string)
+	uri := "/v1/biometry"
 	err := c.cc.Invoke(ctx, http.MethodPost, uri, http.StatusCreated, in, out)
 	return out, err
 }
