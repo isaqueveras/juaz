@@ -7,7 +7,7 @@ import (
 	"github.com/isaqueveras/juaz/grammar"
 )
 
-var VERSION = "v1.0.1"
+var VERSION = "v0.0.0-under-construction"
 
 var imports = []string{
 	"context",
