@@ -18,7 +18,7 @@ func _build_type(juaz *grammar.Juaz) string {
 
 			buf.WriteString("const (\n")
 			for _, enum := range value.Type.Values {
-				buf.WriteString("\t" + enumName + strcase.ToCamel(enum.Value.Key) + "\t" + enumName + " = " + `"` + strings.ToUpper(enum.Value.Key) + `"` + "\n")
+				buf.WriteString("\t" + enumName + strcase.ToCamel(enum.Value.Key) + "\t" + enumName + " = " + `"` + enum.Value.Key + `"` + "\n")
 			}
 			buf.WriteString(")\n")
 
