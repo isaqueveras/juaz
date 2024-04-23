@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"log"
 
 	"github.com/isaqueveras/juazeiro"
@@ -57,6 +58,13 @@ func main() {
 		return
 	}
 	show(biometryData)
+
+	newID, err := repoBio.Create(context.Background(), biometryData)
+	if err != nil {
+		handling(err)
+		return
+	}
+	fmt.Printf("newID: %v\n", *newID)
 
 	if err = repoUser.EditUser(context.Background(), input); err != nil {
 		handling(err)
