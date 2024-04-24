@@ -1,6 +1,8 @@
 package golang
 
 import (
+	"fmt"
+	"os"
 	"path"
 	"strings"
 
@@ -15,6 +17,11 @@ var imports = []string{
 }
 
 func Write(juaz *grammar.Juaz) string {
+	if len(juaz.Entries) == 0 {
+		fmt.Fprintf(os.Stderr, "juaz: nothing to read in the file\n\nFile: %s\n", juaz.Pos.Filename)
+		os.Exit(2)
+	}
+
 	if juaz.Entries[0].Package == "" {
 		panic("syntax err" + juaz.Entries[0].Pos.String())
 	}

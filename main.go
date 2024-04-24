@@ -18,24 +18,27 @@ func main() {
 	flag.Parse()
 
 	if pathFile == nil || *pathFile == "" {
-		fmt.Println("juaz: inform the juazeiro model file")
-		return
+		fmt.Fprintln(os.Stderr, "juaz: inform the juazeiro model file\n\nUsage: -file=<path/file.juaz>")
+		os.Exit(2)
 	}
 
 	fileIn, err := os.Open(*pathFile)
 	if err != nil {
-		panic(err)
+		fmt.Fprintln(os.Stderr, "juaz: unable to open Juaz model file")
+		os.Exit(2)
 	}
 
 	if filepath.Ext(fileIn.Name()) != ".juaz" {
-		fmt.Println("juaz: the juaz file must have the extension .juaz")
-		return
+		fmt.Fprintln(os.Stderr, "juaz: the juaz file must have the extension .juaz\n\nUsage: -file=<path/file.juaz>")
+		os.Exit(2)
 	}
 
-	parser := participle.MustBuild[grammar.Juaz](participle.UseLookahead(2))
-	juaz, _ := parser.Parse("", fileIn)
-	// repr.Println(juaz)
+	parser := participle.MustBuild[grammar.Juaz](
+		participle.UseLookahead(2),
+		participle.Unquote("String"),
+	)
 
+	juaz, _ := parser.Parse("", fileIn)
 	fileOut, err := os.Create(juaz.Pos.Filename + "_client.go")
 	if err != nil {
 		panic(err)

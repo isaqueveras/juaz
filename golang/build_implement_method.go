@@ -71,7 +71,7 @@ func _build_implement_method(juaz *grammar.Juaz) string {
 
 					uri = `fmt.Sprintf("` + path + `",` + strings.TrimRight(arg, `,`) + ")"
 				} else {
-					uri = v.Value
+					uri = `"` + v.Value + `"`
 				}
 			case "method":
 				httpMethod = _build_http_method(v.Value)
@@ -125,13 +125,13 @@ func _build_implement_method(juaz *grammar.Juaz) string {
 
 func _build_http_method(method string) string {
 	switch method {
-	case `"GET"`:
+	case "GET":
 		return "http.MethodGet"
-	case `"POST"`:
+	case "POST":
 		return "http.MethodPost"
-	case `"PUT"`:
+	case "PUT":
 		return "http.MethodPut"
-	case `"DELETE"`:
+	case "DELETE":
 		return "http.MethodDelete"
 	default:
 		panic("method http not supported")
