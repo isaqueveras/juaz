@@ -5,7 +5,7 @@
 
 <p align="center">
 <strong>A documentation for the <a href="https://github.com/isaqueveras/juaz">Juaz</a> language model</strong> <br/>
-Write just once and create http client for many programming languages using Juaz template language for your project.</p>
+Write just once and create http client for many programming languages using Juaz.</p>
 
 <p align="center">
   <a href="https://github.com/sponsors/isaqueveras"><img src="https://img.shields.io/github/sponsors/isaqueveras" alt="Sponsors"
