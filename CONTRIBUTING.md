@@ -6,7 +6,7 @@ This project is the main version of Juaz. Most of our development efforts are fo
 
 # Contribution Guidelines & License
 
-Juaz does not require a CLA (Taxpayer License Agreement). Copyright belongs to all individual contributors. Therefore, we recommend that each contributor add the following line to the header of a file if they have substantially changed it:
+Juaz does not require a CLA (Contributor License Agreement). Copyright belongs to all individual contributors. Therefore, we recommend that each contributor add the following line to the header of a file if they have substantially changed it:
 
 ```
 Copyright (c) <year>, <your name> All rights reserved.
